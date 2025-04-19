@@ -150,12 +150,9 @@
         player.style.height = "100%";
         container.appendChild(player);
 
-        // Loop to load all .swf files from 1.swf to 7000.swf
-        for (let i = 1; i <= 7000; i++) {
-            const swfFileName = `${i}.swf`;
-            console.log(`Loading: ${i}.swf`); // Debugging info in console
-            player.load({i}.swf); // Load the current .swf file
-        }
+    
+            player.load("{i}.swf"); // Load the current .swf file
+        
     });
 </script>
     <script>
