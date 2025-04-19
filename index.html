@@ -49,20 +49,15 @@
             gap: 10px;
             justify-content: center;
         }
-         .game {
-        flex: 1 1 calc(8.33% - 10px); /* 12 boxes per row */
-        box-sizing: border-box;
-        padding: 15px;
-        background-color: white;
-        color: black;
-        text-align: center;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-        .game img {
-            max-width: 100%;
-            height: auto;
+        .game {
+            flex: 1 1 calc(8.33% - 10px); /* 12 boxes per row */
+            box-sizing: border-box;
+            padding: 15px;
+            background-color: white;
+            color: black;
+            text-align: center;
             border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .footer {
             background-color: #333;
@@ -71,39 +66,32 @@
             color: white;
             margin-top: 20px;
         }
-        @media (max-width: 768px) {
-            .game {
-                flex: 1 1 calc(50% - 10px); /* 2 boxes per row on tablets */
-            }
-        }
-        @media (max-width: 480px) {
-            .game {
-                flex: 1 1 100%; /* 1 box per row on mobile */
-            }
-        }
-        /* Snowfall effect */
-        .snowflake {
+        /* Flying effect for birds and butterflies */
+        .flyer {
             position: fixed;
-            top: -10px;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: fall 10s linear infinite, sway 3s ease-in-out infinite;
+            width: 50px;
+            height: 50px;
+            animation: fly 15s linear infinite, flap 1s ease-in-out infinite;
             z-index: 1000;
         }
-        @keyframes fall {
+        .flyer.bird {
+            background: url('https://i.pinimg.com/originals/fa/d2/25/fad225214130494f40d2c8f22166aab4.gif') no-repeat center/contain; /* Bird image */
+        }
+        
+        @keyframes fly {
+            from {
+                transform: translate(-10vw, 10vh);
+            }
             to {
-                transform: translateY(100vh);
+                transform: translate(100vw, -100vh);
             }
         }
-        @keyframes sway {
-            50% {
-                transform: translateX(50px);
+        @keyframes flap {
+            0%, 100% {
+                transform: scale(1);
             }
-            100% {
-                transform: translateX(-50px);
+            50% {
+                transform: scale(1.2);
             }
         }
     </style>
@@ -119,9 +107,7 @@
     </div>
 
     <div class="container" id="home">
-        <div class="game-box" id="game-box">
-            <!-- Game entries will be dynamically added here -->
-        </div>
+        <div class="game-box" id="game-box"></div>
     </div>
 
     <div id="about" class="container">
@@ -139,28 +125,32 @@
     </div>
 
     <script>
-       const gameBox = document.getElementById('game-box');
-for (let i = 1; i <= 7000; i++) {
-    const gameDiv = document.createElement('div');
-    gameDiv.className = 'game';
-    gameDiv.innerHTML = `
-        <h3>Game ${i}</h3>
-        <i class='fas fa-crow' alt="Game ${i}" style='font-size:24px;color:red'></i>
-        <button onclick="location.href='${i}.swf'" style="padding: 10px 20px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Play Now</button>
-    `;
-    gameBox.appendChild(gameDiv);
-}
-
-
-        // Create snowfall effect
-        for (let i = 0; i < 100; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.className = 'snowflake';
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDelay = Math.random() * 10 + 's';
-            snowflake.style.width = snowflake.style.height = Math.random() * 10 + 5 + 'px';
-            document.body.appendChild(snowflake);
+        const gameBox = document.getElementById('game-box');
+        for (let i = 1; i <= 110; i++) { // Example: 12 games for brevity
+            const gameDiv = document.createElement('div');
+            gameDiv.className = 'game';
+            gameDiv.innerHTML = `
+                <h3>Game ${i}</h3>
+                <i class='fas fa-crow' style='font-size:24px;color:red'></i>
+                <button onclick="location.href='${i}.swf'" style="padding: 10px 20px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Play Now</button>
+            `;
+            gameBox.appendChild(gameDiv);
         }
+
+        // Create birds and butterflies
+        const createFlyers = (type, count) => {
+            for (let i = 0; i < count; i++) {
+                const flyer = document.createElement('div');
+                flyer.className = `flyer ${type}`;
+                flyer.style.left = Math.random() * 100 + 'vw';
+                flyer.style.top = Math.random() * 100 + 'vh';
+                flyer.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(flyer);
+            }
+        };
+
+        createFlyers('bird', 5);
+        createFlyers('butterfly', 5);
     </script>
 </body>
 </html>
