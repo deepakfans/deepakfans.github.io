@@ -123,7 +123,41 @@
     <div class="footer">
         <p>&copy; 2025 SWF Games. All Rights Reserved.</p>
     </div>
+<script src="/js/main.js"></script>
+<div height="100%" id="ruffle" width="100%"></div>
+<script src="/js/main.js"></script>
+<div height="100%" id="ruffle" width="100%"></div>
+<script>
+    function loadLocalRuffle() {
+        var script = document.createElement('script');
+        script.src = '../../storage/ruffle/ruffle.js';
+        document.body.appendChild(script);
+    }
 
+    var cdnScript = document.createElement('script');
+    cdnScript.src = 'https://unpkg.com/@ruffle-rs/ruffle';
+    cdnScript.onerror = loadLocalRuffle;
+    document.body.appendChild(cdnScript);
+</script>
+<script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.addEventListener("load", (event) => {
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+        const container = document.getElementById("ruffle");
+        player.id = "player";
+        player.style.width = "100%";
+        player.style.height = "100%";
+        container.appendChild(player);
+
+        // Loop to load all .swf files from 1.swf to 7000.swf
+        for (let i = 1; i <= 7000; i++) {
+            const swfFileName = `${i}.swf`;
+            console.log(`Loading: ${i}.swf`); // Debugging info in console
+            player.load({i}.swf); // Load the current .swf file
+        }
+    });
+</script>
     <script>
         const gameBox = document.getElementById('game-box');
         for (let i = 1; i <= 110; i++) { // Example: 12 games for brevity
