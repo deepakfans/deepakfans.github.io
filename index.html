@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Flash Games</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>SWF Games Index</title>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="../../images/ico.ico" rel="shortcut icon" type="image/x-icon">
+    <script src="../../storage/js/cloak.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,13 +105,57 @@
         </div>
     </div>
 
+    <div id="about" class="container">
+        <h2>About</h2>
+        <p>Welcome to our collection of SWF games. Enjoy thousands of games to play directly from your browser!</p>
+    </div>
+
+    <div id="contact" class="container">
+        <h2>Contact</h2>
+        <p>If you have any questions, feel free to reach out at <a href="mailto:contact@swfgames.com">contact@swfgames.com</a>.</p>
+    </div>
+
     <div class="footer">
         <p>&copy; 2025 SWF Games. All Rights Reserved.</p>
     </div>
 
+    <!-- Ruffle Player Section -->
+    <div height="100%" id="ruffle" width="100%"></div>
+    <script>
+        function loadLocalRuffle() {
+            var script = document.createElement('script');
+            script.src = '../../storage/ruffle/ruffle.js';
+            document.body.appendChild(script);
+        }
+
+        var cdnScript = document.createElement('script');
+        cdnScript.src = 'https://unpkg.com/@ruffle-rs/ruffle';
+        cdnScript.onerror = loadLocalRuffle;
+        document.body.appendChild(cdnScript);
+
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("load", (event) => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("ruffle");
+            player.id = "player";
+            player.style.width = "100%";
+            player.style.height = "100%";
+            container.appendChild(player);
+
+            // Loop to load all .swf files
+            for (let i = 1; i <= 7000; i++) {
+                const swfFileName = `${i}.swf`;
+                console.log(`Loading: ${swfFileName}`);
+                player.load(swfFileName);
+            }
+        });
+    </script>
+
+    <!-- Generate Dynamic Game Boxes -->
     <script>
         const gameBox = document.getElementById('game-box');
-        for (let i = 1; i <= 100; i++) { // Generate exactly 12 boxes
+        for (let i = 1; i <= 12; i++) { // Generate exactly 12 boxes
             const gameDiv = document.createElement('div');
             gameDiv.className = 'game';
             gameDiv.innerHTML = `
