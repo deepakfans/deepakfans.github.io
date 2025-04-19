@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF Games Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .game-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .game {
+            flex: 1 1 calc(25% - 10px); /* 4 boxes per row on desktop */
+            box-sizing: border-box;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .game:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .game h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .game p {
+            margin: 5px 0;
+            color: #555;
+        }
+        @media (max-width: 768px) {
+            .game {
+                flex: 1 1 calc(50% - 10px); /* 2 boxes per row on tablets */
+            }
+        }
+        @media (max-width: 480px) {
+            .game {
+                flex: 1 1 100%; /* 1 box per row on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SWF Games Index</h1>
+        <div class="game-box">
+            <!-- Example game entry -->
+            <div class="game">
+                <h3>Game 1</h3>
+                <p>Description of Game 1</p>
+                <a href="game1.swf">Play</a>
+            </div>
+            <div class="game">
+                <h3>Game 2</h3>
+                <p>Description of Game 2</p>
+                <a href="game2.swf">Play</a>
+            </div>
+            <!-- Add more games here -->
+        </div>
+    </div>
+</body>
+</html>
