@@ -61,14 +61,19 @@
             font-size: 18px;
             color: red;
         }
-        .game a {
-            display: block;
-            margin-top: 5px;
-            text-decoration: none;
-            color: blue;
+        .game button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
         }
-        .game a:hover {
-            text-decoration: underline;
+        .game button:hover {
+            background-color: darkblue;
         }
         .footer {
             background-color: #333;
@@ -120,7 +125,7 @@
     </div>
 
     <!-- Ruffle Player Section -->
-    <div height="100%" id="ruffle" width="100%"></div>
+    <div id="ruffle"></div>
     <script>
         function loadLocalRuffle() {
             var script = document.createElement('script');
@@ -133,38 +138,33 @@
         cdnScript.onerror = loadLocalRuffle;
         document.body.appendChild(cdnScript);
 
-        window.RufflePlayer = window.RufflePlayer || {};
-        window.addEventListener("load", (event) => {
+        // Function to load a specific .swf file
+        function loadGame(swfFileName) {
+            const container = document.getElementById("ruffle");
+            container.innerHTML = ""; // Clear any existing player instance
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            const container = document.getElementById("ruffle");
             player.id = "player";
             player.style.width = "100%";
             player.style.height = "100%";
             container.appendChild(player);
+            player.load(swfFileName);
+        }
 
-            // Loop to load all .swf files
-            for (let i = 1; i <= 7000; i++) {
-                const swfFileName = `${i}.swf`;
-                console.log(`Loading: ${swfFileName}`);
-                player.load(swfFileName);
+        // Dynamically generate game boxes
+        document.addEventListener("DOMContentLoaded", () => {
+            const gameBox = document.getElementById('game-box');
+            for (let i = 1; i <= 12; i++) { // Display only 12 game boxes
+                const gameDiv = document.createElement('div');
+                gameDiv.className = 'game';
+                gameDiv.innerHTML = `
+                    <i class="fas fa-gamepad"></i>
+                    <p>Game ${i}</p>
+                    <button onclick="loadGame('${i}.swf')">Play Now</button>
+                `;
+                gameBox.appendChild(gameDiv);
             }
         });
-    </script>
-
-    <!-- Generate Dynamic Game Boxes -->
-    <script>
-        const gameBox = document.getElementById('game-box');
-        for (let i = 1; i <= 12; i++) { // Generate exactly 12 boxes
-            const gameDiv = document.createElement('div');
-            gameDiv.className = 'game';
-            gameDiv.innerHTML = `
-                <i class="fas fa-gamepad"></i>
-                <p>Game ${i}</p>
-                <a href="${i}.swf">Play Now</a>
-            `;
-            gameBox.appendChild(gameDiv);
-        }
     </script>
 </body>
 </html>
