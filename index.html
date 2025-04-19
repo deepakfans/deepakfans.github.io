@@ -138,23 +138,31 @@
         cdnScript.onerror = loadLocalRuffle;
         document.body.appendChild(cdnScript);
 
-        // Function to load a specific .swf file
+        // Initialize the Ruffle Player
+        window.RufflePlayer = window.RufflePlayer || {};
+
         function loadGame(swfFileName) {
             const container = document.getElementById("ruffle");
             container.innerHTML = ""; // Clear any existing player instance
+
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            player.id = "player";
             player.style.width = "100%";
             player.style.height = "100%";
             container.appendChild(player);
-            player.load(swfFileName);
+
+            // Attempt to load the selected game
+            try {
+                player.load(swfFileName);
+            } catch (error) {
+                console.error(`Failed to load ${swfFileName}:`, error);
+                alert("The game could not be loaded. Please check the file path or format.");
+            }
         }
 
-        // Dynamically generate game boxes
         document.addEventListener("DOMContentLoaded", () => {
             const gameBox = document.getElementById('game-box');
-            for (let i = 1; i <= 12; i++) { // Display only 12 game boxes
+            for (let i = 1; i <= 12; i++) { // Dynamically generate 12 game boxes
                 const gameDiv = document.createElement('div');
                 gameDiv.className = 'game';
                 gameDiv.innerHTML = `
