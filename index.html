@@ -5,7 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Games Index</title>
     <style>
-        /* Styling code remains unchanged */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header, .footer {
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 10px 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+        .game-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .game {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            width: 200px;
+        }
+        .game img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .game a {
+            display: inline-block;
+            margin-top: 5px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .game a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -29,47 +72,18 @@
         <p>&copy; 2025 SWF Games. All Rights Reserved.</p>
     </div>
 
-    <div height="100%" id="ruffle" width="100%"></div>
-
     <script>
         // Dynamically generate game boxes
         const gameBox = document.getElementById('game-box');
-        for (let i = 1; i <= 7000; i++) {
+        for (let i = 1; i <= 10; i++) { // Reduced the count for testing
             const gameDiv = document.createElement('div');
             gameDiv.className = 'game';
             gameDiv.innerHTML = `
-                <img src="https://img.freepik.com/premium-photo/feline-fun-adorable-cat-playing-games-sticker-against-white-background_983420-7149.jpg?text=Game+${i}" alt="Game ${i} Icon">
+                <img src="https://img.freepik.com/premium-photo/feline-fun-adorable-cat-playing-games-sticker-against-white-background_983420-7149.jpg" alt="Game ${i} Icon">
                 <a href="${i}.swf">Play Now</a>
             `;
             gameBox.appendChild(gameDiv);
         }
-
-        // Load Ruffle Player
-        function loadLocalRuffle() {
-            var script = document.createElement('script');
-            script.src = '../../storage/ruffle/ruffle.js';
-            document.body.appendChild(script);
-        }
-
-        var cdnScript = document.createElement('script');
-        cdnScript.src = 'https://unpkg.com/@ruffle-rs/ruffle';
-        cdnScript.onerror = loadLocalRuffle;
-        document.body.appendChild(cdnScript);
-
-        window.RufflePlayer = window.RufflePlayer || {};
-        window.addEventListener("load", (event) => {
-            const ruffle = window.RufflePlayer.newest();
-            const player = ruffle.createPlayer();
-            const container = document.getElementById("ruffle");
-            player.id = "player";
-            player.style.width = "100%";
-            player.style.height = "100%";
-            container.appendChild(player);
-
-            // Load a default SWF file
-            const swfFileName = "1.swf"; // Adjust dynamically if needed
-            player.load(swfFileName);
-        });
     </script>
 </body>
 </html>
