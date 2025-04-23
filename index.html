@@ -131,13 +131,16 @@
 
     <script>
         const gameBox = document.getElementById('game-box');
+    const folders = ["new", "new1", "new2", "new3", "new4", "new5", "new6", "new7", "new8"];
+    
     for (let i = 1; i <= 7000; i++) {
+        const folderIndex = i % folders.length; // Distribute files across folders
         const gameDiv = document.createElement('div');
         gameDiv.className = 'game';
         gameDiv.innerHTML = `
             <h3>Game ${i}</h3>
-            <i class='fas fa-crow' style='font-size:24px;color:red'></i>
-            <button onclick="location.href='index1.html?file=${i}.swf'" style="padding: 10px 20px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Play Now</button>
+            <i class='fas fa-gamepad' style='font-size:24px;color:red'></i>
+            <button onclick="location.href='${folders[folderIndex]}/index1.html?file=${i}.swf'" style="padding: 10px 20px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Play Now</button>
         `;
         gameBox.appendChild(gameDiv);
     }
