@@ -114,25 +114,27 @@
     </div>
 
     <script>
-        function playGame(gameNumber) {
-            let folders = ["", "new", "new1"];
-            let found = false;
+       function playGame(gameNumber) {
+    let folders = ["", "new", "new1"];
+    let found = false;
 
-            folders.forEach(folder => {
-                let xhr = new XMLHttpRequest();
-                xhr.open('HEAD', `${folder}/${gameNumber}.swf`, false);
-                xhr.send();
-                
-                if (xhr.status === 200) {
-                    found = true;
-                    window.location.href = `${folder}/${gameNumber}.swf`;
-                }
-            });
+    folders.forEach(folder => {
+        let gameUrl = `https://deepakfans.github.io/${folder}/${gameNumber}.swf`;
+        let xhr = new XMLHttpRequest();
+        xhr.open('HEAD', gameUrl, false);
+        xhr.send();
 
-            if (!found) {
-                alert("Game file not found in any folder!");
-            }
+        if (xhr.status === 200) {
+            found = true;
+            window.location.href = `https://deepakfans.github.io/index1.html?file=${gameUrl}`; // Redirect with SWF file URL
         }
+    });
+
+    if (!found) {
+        alert("Game file not found in any folder!");
+    }
+}
+
 
         const gameBox = document.getElementById('game-box');
         for (let i = 1; i <= 7000; i++) {
